@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+
+\newcommand{\of}[1]{\left( {#1} \right)}
+\newcommand{\fracd}[2]{\frac{\dd{}{#1}}{\dd{}{#2}}}
+
+\newcommand{\ee}{\text{e}}
+
+\begin{document}
+\section*{Logistic Regression Gradient Descent}
+The notation of the video reads:
+\[
+\begin{split}
+z & = w^T x + b,\\
+\hat y &= a = \sigma\of{z},
+\end{split}
+\]
+with the sigma function given by
+\[
+\sigma\of{z} = \frac{1}{1 + \ee^{-z}}
+\]
+
+\end{document}
