@@ -1,14 +1,17 @@
-\documentclass{article}
-\usepackage{fullpage}
+\documentclass[a4paper,11pt]{article}
+\usepackage[cm]{fullpage}
 \usepackage{amsmath}
 
 \newcommand{\of}[1]{\left( {#1} \right)}
 \newcommand{\fracd}[2]{\frac{\dd{}{#1}}{\dd{}{#2}}}
+\newcommand{\fracp}[2]{\frac{\partial{}{#1}}{\partial{}{#2}}}
 
+\newcommand{\dd}{\text{d}}
 \newcommand{\ee}{\text{e}}
 
 \begin{document}
 \section*{Logistic Regression Gradient Descent}
+\subsection*{Derivative of the sigmoid}
 The notation of the video reads:
 \[
 \begin{split}
@@ -18,7 +21,17 @@ z & = w^T x + b,\\
 \]
 with the sigma function given by
 \[
-\sigma\of{z} = \frac{1}{1 + \ee^{-z}}
+\sigma\of{z} = \frac{1}{1 + \ee^{-z}}.
+\]
+The derivative of $\sigma\of{z}$ with respect to its argument reads
+\[
+\begin{split}
+\fracd{\sigma\of{z}}{z} &= \fracd{}{z}\of{\frac{1}{1 + \ee^{-z}}}
+                        = \frac{\ee^{-z}}{\of{1 + \ee^{-z}}^2}
+                        = \frac{\ee^{-z}}{1 + \ee^{-z}} \times \frac{1}{1 + \ee^{-z}}
+                        = \frac{1 + \ee^{-z} - 1}{1 + \ee^{-z}} \times \frac{1}{1 + \ee^{-z}} =\\
+                        &= \of{1 - \sigma\of{z}} \sigma\of{z}.
+\end{split}
 \]
 
 \end{document}
