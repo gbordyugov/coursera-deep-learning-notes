@@ -1,8 +1,10 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[cm]{fullpage}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 
 \newcommand{\of}[1]{\left( {#1} \right)}
+\newcommand{\ofs}[1]{\left[ {#1} \right]}
 \newcommand{\fracd}[2]{\frac{\dd{}{#1}}{\dd{}{#2}}}
 \newcommand{\fracp}[2]{\frac{\partial{}{#1}}{\partial{}{#2}}}
 
@@ -11,18 +13,23 @@
 
 \begin{document}
 \section*{Logistic Regression Gradient Descent}
-\subsection*{Derivative of the sigmoid}
 The notation of the video reads:
 \[
 \begin{split}
 z & = w^T x + b,\\
-\hat y &= a = \sigma\of{z},
+\hat y &= a = \sigma\of{z}, \qquad \sigma\of{z} := \frac{1}{1 + \ee^{-z}}
 \end{split}
 \]
-with the sigma function given by
+and the loss function
 \[
-\sigma\of{z} = \frac{1}{1 + \ee^{-z}}.
+\mathcal{L}\of{\hat{y}, y} = - \ofs{y \log\hat{y} + \of{1 - y} \log \of {1 - \hat{y}}}.
 \]
+Here, $x \in \mathbb{R}^N$ is a $N$-dimensional feature vector, $w \in
+\mathbb{R}^N$ are $N$ weights, $b$ is the bias, $\hat{y} \in [0, 1]$
+is the prediction of the model based on $x$, and $y$ is the ground
+truth label.
+
+\subsection*{Derivative of the sigmoid function}
 The derivative of $\sigma\of{z}$ with respect to its argument reads
 \[
 \begin{split}
@@ -30,8 +37,17 @@ The derivative of $\sigma\of{z}$ with respect to its argument reads
                         = \frac{\ee^{-z}}{\of{1 + \ee^{-z}}^2}
                         = \frac{\ee^{-z}}{1 + \ee^{-z}} \times \frac{1}{1 + \ee^{-z}}
                         = \frac{1 + \ee^{-z} - 1}{1 + \ee^{-z}} \times \frac{1}{1 + \ee^{-z}} =\\
-                        &= \of{1 - \sigma\of{z}} \sigma\of{z}.
+                        &= \ofs{1 - \sigma\of{z}} \sigma\of{z}.
 \end{split}
 \]
 
+\subsection*{Derivative of the loss function}
+The derivative of $\mathcal{L}\of{\hat{y}, y}$ with resepect to the prediction $\hat{y}$ reads:
+\[
+\begin{split}
+\fracp{}{\hat{y}} \mathcal{L}\of{\hat{y}, y} =
+- \fracp{}{\hat{y}} \ofs{y \log\hat{y} + \of{1 - y} \log \of {1 - \hat{y}}} =
+- \ofs{\frac{y}{\hat{y}} - \frac{1 - y}{1 - \hat{y}}}.
+\end{split}
+\]
 \end{document}
