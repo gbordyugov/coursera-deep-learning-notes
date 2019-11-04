@@ -24,10 +24,10 @@ and the loss function
 \[
 \mathcal{L}\of{\hat{y}, y} = - \ofs{y \log\hat{y} + \of{1 - y} \log \of {1 - \hat{y}}}.
 \]
-Here, $x \in \mathbb{R}^N$ is a $N$-dimensional feature vector, $w \in
-\mathbb{R}^N$ are $N$ weights, $b$ is the bias, $\hat{y} \in [0, 1]$
-is the prediction of the model based on $x$, and $y$ is the ground
-truth label.
+Here, $x \in \mathbb{R}^{n_x}$ is a $n_x$-dimensional feature vector,
+$w \in \mathbb{R}^{n_x}$ are $n_x$ weights, $b$ is the bias, $\hat{y}
+\in [0, 1]$ is the prediction of the model based on $x$, and $y$ is
+the ground truth label.
 
 \subsection*{Derivative of the sigmoid function}
 The derivative of $\sigma\of{z}$ with respect to its argument reads
