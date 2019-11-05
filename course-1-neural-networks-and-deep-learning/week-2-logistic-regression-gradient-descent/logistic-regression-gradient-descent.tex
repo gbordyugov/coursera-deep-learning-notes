@@ -45,18 +45,24 @@ The derivative of $\sigma\of{z}$ with respect to its argument reads
 The derivative of $\mathcal{L}\of{\hat{y}, y}$ with resepect to the prediction $\hat{y}$ reads:
 \[
 \begin{split}
-\fracp{}{\hat{y}} \mathcal{L}\of{\hat{y}, y} =
-- \fracp{}{\hat{y}} \ofs{y \log\hat{y} + \of{1 - y} \log \of {1 - \hat{y}}} =
-- \ofs{\frac{y}{\hat{y}} - \frac{1 - y}{1 - \hat{y}}}.
+\fracp{}{\hat{y}} \mathcal{L}\of{\hat{y}, y} &=
+- \fracp{}{\hat{y}} \of{y \log\hat{y} + \of{1 - y} \log\of{1 - \hat{y}}} =
+- \of{\frac{y}{\hat{y}} - \frac{1 - y}{1 - \hat{y}}} =
+- \frac{y\of{1-\hat{y}} - \hat{y}\of{1-y}}{\hat{y}\of{1 - \hat{y}}} = \\
+&=
+- \frac{y - y\hat{y} - \hat{y} + \hat{y}y}{\hat{y}\of{1 - \hat{y}}} =
+  \frac{\hat{y} - y}{\hat{y}\of{1 - \hat{y}}} =
+  \frac{\sigma\of{z} - y}{\sigma\of{z}\of{1 - \sigma\of{z}}}.
 \end{split}
 \]
 
 \subsection*{Derivative $\partial\mathcal{L}_{\partial z}$}
-We consequently have
+For the derivative of the loss $\mathcal{L}$ with respect to $z$ We
+consequently have
 \[
 \fracp{\mathcal{L}}{z} =
 \fracp{\mathcal{L}}{\hat{y}} \fracd{\hat{y}}{z} =
-\fracp{\mathcal{L}}{\hat{y}} \fracd{\hat{y}}{z} =
-- \ofs{\frac{y}{\hat{y}} - \frac{1 - y}{1 - \hat{y}}} \times \ofs{1 - \sigma\of{z}} \sigma\of{z} = ....
+\frac{\sigma\of{z} - y}{\sigma\of{z}\of{1 - \sigma\of{z}}} \times \of{1 - \sigma\of{z}}\sigma\of{z} = 
+\sigma\of{z} - y.
 \]
 \end{document}
