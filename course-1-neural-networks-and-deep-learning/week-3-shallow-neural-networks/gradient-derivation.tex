@@ -2,6 +2,7 @@
 \usepackage[cm]{fullpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{nicefrac}
 
 \newcommand{\of}[1]{\left( {#1} \right)}
 \newcommand{\ofs}[1]{\left[ {#1} \right]}
@@ -15,34 +16,52 @@
 \section*{Gradient derivation for a two-layer network}
 Consider the network with two inputs $x\in\mathbb{R}^2$ with {\bf two}
 layers, the first one having {\bf three} neurons and the second, the
-output layer, having just 1 neuron. The equations would be
+output layer, having {\bf two} neurons. The equations would be
 \[
 \begin{split}
-z^1 &= W^1 x + b^1,\\
-a^1 &= f_1\of{z^1},\\
-z^2 &= W^2 x + b^2,\\
-a^2 &= f_2(z^2),\\
-\mathcal{L}\of{a^2, y} &= - \ofs{y\log a^2 + \of{1-y} \log\of{1 - a^2}}.
+z^1 &= W^1 x + b^1, \qquad a^1 = f_1\of{z^1},\\
+z^2 &= W^2 x + b^2, \qquad a^2 = f_2(z^2)
 \end{split}
 \]
-Here, the superscript of $W$ and $b$ denotes the number of the layer.
-The dimensions of the matrices are given by $W^1 \in
-\mathbb{R}^{3\times 2}$, $b^1 \in \mathbb{R}^{3 \time 1}$, $W^2 \in
-\mathbb{R}^{1 \times 3}$, and $b^2 \in \mathbb{R}^{1,1}$.
+with some loss function $\mathcal{L}\of{a^2,y}$. Here, the superscript
+of $W$ and $b$ denotes the index of the layer. The dimensions of the
+states are given by $z_1, a_1 \in \mathbb{R}^3$, $z_2, a_2 \in
+\mathbb{R}^2$, and the dimensions of the matrices are given by $W^1
+\in \mathbb{R}^{3\times 2}$, $b^1 \in \mathbb{R}^{3 \time 1}$, $W^2
+\in \mathbb{R}^{2 \times 3}$, and $b^2 \in \mathbb{R}^{2 \times 1}$.
 
-Component-wise, the above equations would read
+Element-wise, the above equations would read
 \[
 \begin{split}
-z^1_1 &= W^1_{1,1} x_1 + W^1_{1,2} x_2 + b^1_{1,1},\\
-z^1_2 &= W^1_{2,1} x_1 + W^1_{2,2} x_2 + b^1_{2,1},\\
-z^1_3 &= W^1_{3,1} x_1 + W^1_{3,2} x_2 + b^1_{3,1},\\
-a^1_1 &= f_1\of{z^1_1},\\
-a^1_2 &= f_1\of{z^1_2},\\
-a^1_3 &= f_1\of{z^1_3},\\
-z^2_1 &= W^2_{1,2} a_1 + W^2_{1,2} a_2 + W^2_{1,3} a_3 + b^2_{1,1},\\
-a^2_1 &= f_2\of{z^2_1},
-\mathcal{L}\of{a^2,y} = -\ofs{y\log{a^2_1} + \of{1-y}\log\of{1 - a^2_1}}.
+z^1_1 &= W^1_{1,1} x_1 + W^1_{1,2} x_2 + b^1_{1,1}, \qquad
+a^1_1  = f_1\of{z^1_1},\\
+z^1_2 &= W^1_{2,1} x_1 + W^1_{2,2} x_2 + b^1_{2,1}, \qquad
+a^1_2  = f_1\of{z^1_2},\\
+z^1_3 &= W^1_{3,1} x_1 + W^1_{3,2} x_2 + b^1_{3,1}, \qquad
+a^1_3  = f_1\of{z^1_3},\\
+\end{split}
+\]
+for the first layer, and for the second
+\[
+\begin{split}
+z^2_1 &= W^2_{1,2} a_1 + W^2_{1,2} a_2 + W^2_{1,3} a_3 + b^2_{1,1}, \qquad
+a^2_1  = f_2\of{z^2_1},\\
+z^2_2 &= W^2_{2,2} a_1 + W^2_{2,2} a_2 + W^2_{2,3} a_3 + b^2_{2,1}, \qquad
+a^2_2  = f_2\of{z^2_2}.
 \end{split}
 \]
 
+For the derivative of the loss function with respect to $W^2$ we write
+\[
+\fracp{\mathcal{L}}{W^2} = \fracp{\mathcal{L}}{a^2}\fracp{a^2}{z^2}\fracp{z^2}{W^2}
+\]
+(note that the superscript do not denote a higher-order derivative,
+but rather the index of the network layer). The first term depends on the particular choice of the loss function:
+\[
+\fracp{\mathcal{L}}{a^2} =
+\begin{pmatrix}
+\fracp{\mathcal{L}}{a^2_1}\\
+\fracp{\mathcal{L}}{a^2_2}
+\end{pmatrix}.
+\]
 \end{document}
